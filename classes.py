@@ -12,7 +12,6 @@ class Level:
     def __init__(self):
         self.file = FILE
         self.level_structure = []
-        self.labyrinth_start = []
 
     @classmethod
     def window_generation(cls):
@@ -57,20 +56,13 @@ class Level:
                 if sprite == "0":
                     window.blit(wall, (abscissa, ordinate))
                 elif sprite == "C":
-                    #window.blit(mcgyver, (abscissa, ordinate))
-                    self.labyrinth_start = [int(case_number), int(line_number)]
+                    window.blit(wall, (abscissa, ordinate))
                 elif sprite == "1":
                     window.blit(floor, (abscissa, ordinate))
                 elif sprite == "G":
                     window.blit(guard, (abscissa, ordinate))
                 case_number += 1
             line_number += 1
-    @property
-    def get_start(self):
-        """
-            Return the position of the start of the labyrinth
-        """
-        return self.labyrinth_start
 
 class Character:
     """
@@ -85,13 +77,7 @@ class Character:
         self.pixel_x = 0
         self.pixel_y = 0
         self.map = map_structure
-        self.position = pygame.image.load(MCGYVER).convert_alpha()
-
-    def return_location(self):
-        """
-            Return starting location
-        """
-        return self.abscissa
+        self.image = pygame.image.load(MCGYVER).convert_alpha()
 
     def move(self, direction):
         """
@@ -103,25 +89,44 @@ class Character:
                 #Check that he wont go on the wall
                 if self.map[self.ordinate][self.abscissa+1] != "0":
                     self.abscissa += 1  #Move one case on the right (positive axis)
-                    self.pixel_x = self.abscissa * SPRITE_SIZE #Refresh Initial Position
+                    self.pixel_x = self.abscissa * SPRITE_SIZE #Set new pixel position
         if direction == "left":
             #Check that he wont get outside the Screen
             if self.abscissa > 0:
                 #Check that he wont go on the wall
                 if self.map[self.ordinate][self.abscissa-1] != "0":
-                    self.abscissa -= 1  #Move one case on the right (positive axis)
-                    self.pixel_x = self.abscissa * SPRITE_SIZE #Refresh Initial Position
+                    self.abscissa -= 1  #Move one case on the left (positive axis)
+                    self.pixel_x = self.abscissa * SPRITE_SIZE #Set new pixel position
         if direction == "up":
             #Check that he wont get outside the Screen
             if self.ordinate > 0:
                 #Check that he wont go on the wall
                 if self.map[self.ordinate-1][self.abscissa] != "0":
-                    self.ordinate -= 1  #Move one case on the right (positive axis)
-                    self.pixel_y = self.ordinate * SPRITE_SIZE #Refresh Initial Position
+                    self.ordinate -= 1  #Move one case up (negative axis)
+                    self.pixel_y = self.ordinate * SPRITE_SIZE #Set new pixel position
         if direction == "down":
             #Check that he wont get outside the Screen
             if self.ordinate < (SPRITES_NUMBER - 1):
                 #Check that he wont go on the wall
                 if self.map[self.ordinate+1][self.abscissa] != "0":
-                    self.ordinate += 1  #Move one case on the right (positive axis)
-                    self.pixel_y = self.ordinate * SPRITE_SIZE #Refresh Initial Position
+                    self.ordinate += 1  #Move one case down (positive axis)
+                    self.pixel_y = self.ordinate * SPRITE_SIZE #Set new pixel position
+    @property
+    def position(self):
+        """
+            Characters position, for image bliting
+        """
+        return [self.pixel_x, self.pixel_y]
+
+class Objects:
+    """
+        So Here the  built of this class
+            In the Level class (or Objects class still not decided where it should better be),
+            Add a method that take all the free sprites and add them to a dictionnary
+            Count number of dictionnary entries, then rand a number from 0 to max in
+            The Number got is the sprite where the item has to be set
+            There are 3 items, do we launch the class for each or set up a auto rand
+            for all Items in 1-time?
+            When McGyver walk on an Object, it disapears and is counted as collected
+            How to get an item on pygame?
+    """
