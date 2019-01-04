@@ -4,6 +4,7 @@
 import pygame
 from pygame.locals import *
 from constants import *
+from random import randint
 
 class Level:
     """
@@ -45,7 +46,6 @@ class Level:
         wall = pygame.image.load(WALL).convert()
         floor = pygame.image.load(FLOOR).convert()
         guard = pygame.image.load(GUARD).convert_alpha()
-        #mcgyver = pygame.image.load(MCGYVER).convert_alpha()
 
         line_number = 0
         for line in self.level_structure:
@@ -56,10 +56,11 @@ class Level:
                 if sprite == "0":
                     window.blit(wall, (abscissa, ordinate))
                 elif sprite == "C":
-                    window.blit(wall, (abscissa, ordinate))
+                    window.blit(floor, (abscissa, ordinate))
                 elif sprite == "1":
                     window.blit(floor, (abscissa, ordinate))
                 elif sprite == "G":
+                    window.blit(floor, (abscissa, ordinate))
                     window.blit(guard, (abscissa, ordinate))
                 case_number += 1
             line_number += 1
@@ -118,7 +119,7 @@ class Character:
         """
         return [self.pixel_x, self.pixel_y]
 
-class Objects:
+class Item:
     """
         So Here the  built of this class
             In the Level class (or Objects class still not decided where it should better be),
@@ -130,3 +131,54 @@ class Objects:
             When McGyver walk on an Object, it disapears and is counted as collected
             How to get an item on pygame?
     """
+    def __init__(self, map_structure):
+        """
+            Init
+        """
+        self.aiguille_image = pygame.image.load(AIGUILLE).convert_alpha()
+        self.ether_image = pygame.image.load(ETHER).convert_alpha()
+        self.tube_image = pygame.image.load(TUBE).convert_alpha()
+        self.seringue_image = pygame.image.load(SERINGUE).convert_alpha()
+        self.map = map_structure
+        self.pixel_x = 0
+        self.pixel_y = 0
+
+    def item_position(self, item):
+        """
+            Hey
+        """
+        if item == "aiguille":
+            ok_position = None
+            while ok_position is None:
+                rand_ligne = randint(0, 14)
+                rand_case = randint(0, 13)
+                if self.map[rand_ligne][rand_case] == "1":
+                    self.pixel_x = rand_case * SPRITE_SIZE
+                    self.pixel_y = rand_ligne * SPRITE_SIZE
+                    ok_position = True
+
+        elif item == "ether":
+            ok_position = None
+            while ok_position is None:
+                rand_ligne = randint(0, 14)
+                rand_case = randint(0, 13)
+                if self.map[rand_ligne][rand_case] == "1":
+                    self.pixel_x = rand_case * SPRITE_SIZE
+                    self.pixel_y = rand_ligne * SPRITE_SIZE
+                    ok_position = True
+        elif item == "tube":
+            ok_position = None
+            while ok_position is None:
+                rand_ligne = randint(0, 14)
+                rand_case = randint(0, 13)
+                if self.map[rand_ligne][rand_case] == "1":
+                    self.pixel_x = rand_case * SPRITE_SIZE
+                    self.pixel_y = rand_ligne * SPRITE_SIZE
+                    ok_position = True
+
+    @property
+    def position(self):
+        """
+            Characters position, for image bliting
+        """
+        return [self.pixel_x, self.pixel_y]
