@@ -30,8 +30,6 @@ The program could be written with the following classes:
 - Character
 - Objects
 
-> - How to set up a proper item random generation?
-> - Would'nt it be cleaner to create a special class for the display management? (blit/flip)
 ### Structure of the program
 - main.py
 - constants.py
@@ -41,18 +39,18 @@ The program could be written with the following classes:
 
 ## Classes
 1. **map:**
-  - Level initialisation (get file + empty structure list)
+  - Level initialisation (get labyrinth file + empty structure list)
   - Window generation and display
   - Labyrinth structure definition (return a list from file)
   - Labyrinth drawing
 2. **character:**
   - McGyver initialisation (position + image)
   - McGyver movement management
+  - McGyver position
 3. **objects:**
-  - objects generation and placing
->  Will it contains a random method to calculate
->  the place of each object randomly or will this take place
->  in his own class?
+  - Items initialisation (images and map structure for positionning)
+  - Item generation and random positionning
+  - Item position
 
 ### Deroulement du programme
 main:
@@ -62,6 +60,6 @@ main:
   - main_loop:
     - labyrinth display
     - get keyboard events
-    - mcgyver move
-    - display flip
-    - end_game
+      - mcgyver movements
+    - images refresh
+    - pick up items and win conditions

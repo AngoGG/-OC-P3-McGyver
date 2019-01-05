@@ -1,10 +1,10 @@
 """
     Will contain all the program classes
 """
+from random import randint
 import pygame
 from pygame.locals import *
 from constants import *
-from random import randint
 
 class Level:
     """

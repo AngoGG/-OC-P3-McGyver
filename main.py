@@ -9,9 +9,7 @@
 
 import pygame
 from pygame.locals import *
-
-from classes import *
-from constants import *
+from classes import Level, Character, Item
 
 def main():
     """
@@ -49,7 +47,7 @@ def main():
                 game_continue = 0
             elif event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    level_continue = 0
+                    game_continue = 0
                 elif event.key == K_RIGHT:
                     mcgyver.move('right')
                 elif event.key == K_LEFT:
@@ -76,21 +74,18 @@ def main():
             else:
                 print('Loose, you only got ' + str(item_number) + " on 3, try again")
                 print(mcgyver.position)
-        elif mcgyver.position == ether_item.position:
-            if got_ether is False:
-                print('Yes i got an item! That\'s ether!')
-                item_number += 1
-                got_ether = True
-        elif mcgyver.position == aiguille_item.position:
-            if got_aiguille is False:
-                print('Yes i got an item! That\'s an aiguille!')
-                item_number += 1
-                got_aiguille = True
-        elif mcgyver.position == tube_item.position:
-            if got_tube is False:
-                print('Yes i got an item! That\'s a tube!')
-                item_number += 1
-                got_tube = True
+        elif mcgyver.position == ether_item.position and got_ether is False:
+            print('Yes i got an item! That\'s ether!')
+            item_number += 1
+            got_ether = True
+        elif mcgyver.position == aiguille_item.position and got_aiguille is False:
+            print('Yes i got an item! That\'s an aiguille!')
+            item_number += 1
+            got_aiguille = True
+        elif mcgyver.position == tube_item.position and got_tube is False:
+            print('Yes i got an item! That\'s a tube!')
+            item_number += 1
+            got_tube = True
 
 if __name__ == "__main__":
     main()

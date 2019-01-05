@@ -12,10 +12,10 @@ MCGYVER = "images/mcgyver.png"
 GUARD = "images/guard.png"
 #Labyrinth images
 WALL = "images/wall.png"
-FLOOR = "images/floor.png"
+FLOOR = "images/floor2.png"
 #Objects images
 AIGUILLE = "images/aiguille.png"
-TUBE = "images/tub.pnge"
+TUBE = "images/tube.png"
 ETHER = "images/ether.png"
 SERINGUE = "images/seringue.png"
 #Some song? :o
