@@ -19,7 +19,6 @@ def main():
     pygame.init()
     game = Level()
 
-
     window = game.window_generation()
     map_structure = game.get_labyrinth_structure()
     mcgyver = Character(map_structure)
@@ -43,19 +42,13 @@ def main():
         game.set_labyrinth(window)
         pygame.time.Clock().tick(10)
         for event in pygame.event.get():
-            if event.type == QUIT:
+            if event.type == 12: # QUIT
                 game_continue = 0
-            elif event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
+            elif event.type == 2: # KEYDOWN
+                if event.key == 27: # K_ESCAPE
                     game_continue = 0
-                elif event.key == K_RIGHT:
-                    mcgyver.move('right')
-                elif event.key == K_LEFT:
-                    mcgyver.move('left')
-                elif event.key == K_UP:
-                    mcgyver.move('up')
-                elif event.key == K_DOWN:
-                    mcgyver.move('down')
+                else:
+                    mcgyver.move(event.key)
         if got_aiguille is False:
             window.blit(aiguille_item.aiguille_image, (aiguille_item.position))
         if got_ether is False:
@@ -70,10 +63,8 @@ def main():
             game_continue = 0
             if item_number == 3:
                 print('WIN')
-                print(mcgyver.position)
             else:
                 print('Loose, you only got ' + str(item_number) + " on 3, try again")
-                print(mcgyver.position)
         elif mcgyver.position == ether_item.position and got_ether is False:
             print('Yes i got an item! That\'s ether!')
             item_number += 1
