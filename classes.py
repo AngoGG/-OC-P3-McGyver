@@ -55,9 +55,7 @@ class Level:
                 ordinate = line_number * SPRITE_SIZE
                 if sprite == "0":
                     window.blit(wall, (abscissa, ordinate))
-                elif sprite == "C":
-                    window.blit(floor, (abscissa, ordinate))
-                elif sprite == "1":
+                elif sprite in ("C", "I", "1"):
                     window.blit(floor, (abscissa, ordinate))
                 elif sprite == "G":
                     window.blit(floor, (abscissa, ordinate))
@@ -84,34 +82,35 @@ class Character:
         """
             Make the character move
         """
-        if direction == "right":
+        if direction == 275: # K_RIGHT
             #Check that he wont get outside the Screen
             if self.abscissa < (SPRITES_NUMBER - 1):
                 #Check that he wont go on the wall
                 if self.map[self.ordinate][self.abscissa+1] != "0":
                     self.abscissa += 1  #Move one case on the right (positive axis)
                     self.pixel_x = self.abscissa * SPRITE_SIZE #Set new pixel position
-        if direction == "left":
-            #Check that he wont get outside the Screen
-            if self.abscissa > 0:
-                #Check that he wont go on the wall
-                if self.map[self.ordinate][self.abscissa-1] != "0":
-                    self.abscissa -= 1  #Move one case on the left (positive axis)
-                    self.pixel_x = self.abscissa * SPRITE_SIZE #Set new pixel position
-        if direction == "up":
-            #Check that he wont get outside the Screen
-            if self.ordinate > 0:
-                #Check that he wont go on the wall
-                if self.map[self.ordinate-1][self.abscissa] != "0":
-                    self.ordinate -= 1  #Move one case up (negative axis)
-                    self.pixel_y = self.ordinate * SPRITE_SIZE #Set new pixel position
-        if direction == "down":
+        elif direction == 274: # K_LEFT
             #Check that he wont get outside the Screen
             if self.ordinate < (SPRITES_NUMBER - 1):
                 #Check that he wont go on the wall
                 if self.map[self.ordinate+1][self.abscissa] != "0":
                     self.ordinate += 1  #Move one case down (positive axis)
                     self.pixel_y = self.ordinate * SPRITE_SIZE #Set new pixel position
+        elif direction == 276: # K_DOWN
+            #Check that he wont get outside the Screen
+            if self.abscissa > 0:
+                #Check that he wont go on the wall
+                if self.map[self.ordinate][self.abscissa-1] != "0":
+                    self.abscissa -= 1  #Move one case on the left (positive axis)
+                    self.pixel_x = self.abscissa * SPRITE_SIZE #Set new pixel position
+        elif direction == 273: # K_UP
+            #Check that he wont get outside the Screen
+            if self.ordinate > 0:
+                #Check that he wont go on the wall
+                if self.map[self.ordinate-1][self.abscissa] != "0":
+                    self.ordinate -= 1  #Move one case up (negative axis)
+                    self.pixel_y = self.ordinate * SPRITE_SIZE #Set new pixel position
+
     @property
     def position(self):
         """
@@ -121,15 +120,7 @@ class Character:
 
 class Item:
     """
-        So Here the  built of this class
-            In the Level class (or Objects class still not decided where it should better be),
-            Add a method that take all the free sprites and add them to a dictionnary
-            Count number of dictionnary entries, then rand a number from 0 to max in
-            The Number got is the sprite where the item has to be set
-            There are 3 items, do we launch the class for each or set up a auto rand
-            for all Items in 1-time?
-            When McGyver walk on an Object, it disapears and is counted as collected
-            How to get an item on pygame?
+        Item class, basically
     """
     def __init__(self, map_structure):
         """
@@ -156,7 +147,8 @@ class Item:
                     self.pixel_x = rand_case * SPRITE_SIZE
                     self.pixel_y = rand_ligne * SPRITE_SIZE
                     ok_position = True
-
+                    # We replace the sprite to ensure we cannot get 2 item on it
+                    self.map[rand_ligne][rand_case] = "I"
         elif item == "ether":
             ok_position = None
             while ok_position is None:
@@ -166,6 +158,8 @@ class Item:
                     self.pixel_x = rand_case * SPRITE_SIZE
                     self.pixel_y = rand_ligne * SPRITE_SIZE
                     ok_position = True
+                    # We replace the sprite to ensure we cannot get 2 item on it
+                    self.map[rand_ligne][rand_case] = "I"
         elif item == "tube":
             ok_position = None
             while ok_position is None:
@@ -175,6 +169,8 @@ class Item:
                     self.pixel_x = rand_case * SPRITE_SIZE
                     self.pixel_y = rand_ligne * SPRITE_SIZE
                     ok_position = True
+                    # We replace the sprite to ensure we cannot get 2 item on it
+                    self.map[rand_ligne][rand_case] = "I"
 
     @property
     def position(self):
