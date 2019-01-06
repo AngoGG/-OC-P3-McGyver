@@ -14,8 +14,8 @@ GUARD = "images/guard.png"
 WALL = "images/wall.png"
 FLOOR = "images/floor2.png"
 #Objects images
-AIGUILLE = "images/aiguille.png"
+NEEDLE = "images/needle.png"
 TUBE = "images/tube.png"
 ETHER = "images/ether.png"
-SERINGUE = "images/seringue.png"
+SYRINGE = "images/syringe.png"
 #Some song? :o
