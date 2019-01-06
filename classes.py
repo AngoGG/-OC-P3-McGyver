@@ -20,7 +20,7 @@ class Level:
             Window Generation, does'nt work at the moment,
             Cant get the result back to use it in show method
         """
-        return pygame.display.set_mode((WINDOW_SIDE_LENGTH, WINDOW_SIDE_LENGTH))
+        return pygame.display.set_mode((450, 480))
 
     def get_labyrinth_structure(self):
         """
