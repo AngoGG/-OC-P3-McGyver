@@ -1,5 +1,7 @@
 """
-    Will contain all the program classes
+    Contain the Item classe:
+        - Define the random position of an item
+        - Display the image of each item if they are collected or not
 """
 from random import randint
 import pygame
@@ -19,7 +21,7 @@ class Item:
         self.map = map_structure
         self.pixel_x = 0
         self.pixel_y = 0
-        self.got_item = False
+        self.collected = False
 
 
     def item_position(self, item):
@@ -64,7 +66,7 @@ class Item:
         """
             Display management of items
         """
-        if self.got_item is False:
+        if self.collected is False:
             window.blit(self.image, (self.position))
         elif item_number == 3:
             window.blit(self.syringe_image, [40, 450])

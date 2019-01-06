@@ -75,18 +75,18 @@ def main():
                     print('WIN')
                 else:
                     print('Loose, you only got ' + str(item_number) + " on 3, try again")
-            elif mcgyver.position == ether_item.position and ether_item.got_item is False:
+            elif mcgyver.position == ether_item.position and ether_item.collected is False:
                 print('Yes i got an item! That\'s ether!')
                 item_number += 1
-                ether_item.got_item = True
-            elif mcgyver.position == needle_item.position and needle_item.got_item is False:
+                ether_item.collected = True
+            elif mcgyver.position == needle_item.position and needle_item.collected is False:
                 print('Yes i got an item! That\'s a needle!')
                 item_number += 1
-                needle_item.got_item = True
-            elif mcgyver.position == tube_item.position and tube_item.got_item is False:
+                needle_item.collected = True
+            elif mcgyver.position == tube_item.position and tube_item.collected is False:
                 print('Yes i got an item! That\'s a tube!')
                 item_number += 1
-                tube_item.got_item = True
+                tube_item.collected = True
 
 if __name__ == "__main__":
     main()
