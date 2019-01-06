@@ -10,35 +10,34 @@
 import pygame
 from pygame.locals import *
 from classes import Level, Character, Item
+from constants import NEEDLE, ETHER, TUBE
 
 def main():
     """
         Main Method
     """
-    #Generating Map
+
     pygame.init()
+
+
+    #Generating Window
     game = Level()
-
     window = game.window_generation()
-    map_structure = game.get_labyrinth_structure()
-    mcgyver = Character(map_structure)
-
-
-    aiguille_item = Item(map_structure)
-    ether_item = Item(map_structure)
-    tube_item = Item(map_structure)
-    seringue_item = Item(map_structure)
-    aiguille_item.item_position("aiguille")
-    ether_item.item_position("ether")
-    tube_item.item_position("tube")
-
+    #Generating Home Menu
     home = 1
     home_image = pygame.image.load("images/mcgyver_home.png").convert()
-
+    #Generating Labyrinth Structure
+    map_structure = game.get_labyrinth_structure()
+    #Generating Character
+    mcgyver = Character(map_structure)
+    #Generating Items
+    needle_item = Item(map_structure, NEEDLE)
+    ether_item = Item(map_structure, ETHER)
+    tube_item = Item(map_structure, TUBE)
+    needle_item.item_position("needle")
+    ether_item.item_position("ether")
+    tube_item.item_position("tube")
     item_number = 0
-    got_ether = False
-    got_tube = False
-    got_aiguille = False
 
     while home:
         window.blit(home_image, (0, 0))  # displaying home screen
@@ -50,7 +49,6 @@ def main():
                 game_continue = 0
             elif event.type == 2:
                 if event.key == 32:
-                    print(event.key)
                     home = 0
                     game_continue = 1
         while game_continue:
@@ -65,44 +63,32 @@ def main():
                         game_continue = 0
                     else:
                         mcgyver.move(event.key)
-            if got_aiguille is False:
-                window.blit(aiguille_item.aiguille_image, (aiguille_item.position))
-            elif item_number < 3:
-                window.blit(aiguille_item.aiguille_image, [0, 450])
-            if got_ether is False:
-                window.blit(ether_item.ether_image, (ether_item.position))
-            elif item_number < 3:
-                window.blit(ether_item.ether_image, [40, 450])
-            if got_tube is False:
-                window.blit(tube_item.tube_image, (tube_item.position))
-            elif item_number < 3:
-                window.blit(tube_item.tube_image, [80, 450])
-            if item_number == 3:
-                window.blit(seringue_item.seringue_image, [0, 450])
+
+            needle_item.display(window, "needle", item_number)
+            ether_item.display(window, "ether", item_number)
+            tube_item.display(window, "tube", item_number)
 
             window.blit(mcgyver.image, (mcgyver.position))
             pygame.display.flip()   #Screen refresh
 
             if game.level_structure[mcgyver.abscissa][mcgyver.ordinate] == "G":
-                print(mcgyver.position)
                 game_continue = 0
                 if item_number == 3:
                     print('WIN')
                 else:
                     print('Loose, you only got ' + str(item_number) + " on 3, try again")
-            elif mcgyver.position == ether_item.position and got_ether is False:
+            elif mcgyver.position == ether_item.position and ether_item.got_item is False:
                 print('Yes i got an item! That\'s ether!')
                 item_number += 1
-                got_ether = True
-            elif mcgyver.position == aiguille_item.position and got_aiguille is False:
-                print('Yes i got an item! That\'s an aiguille!')
+                ether_item.got_item = True
+            elif mcgyver.position == needle_item.position and needle_item.got_item is False:
+                print('Yes i got an item! That\'s a needle!')
                 item_number += 1
-                got_aiguille = True
-            elif mcgyver.position == tube_item.position and got_tube is False:
+                needle_item.got_item = True
+            elif mcgyver.position == tube_item.position and tube_item.got_item is False:
                 print('Yes i got an item! That\'s a tube!')
                 item_number += 1
-                got_tube = True
-
+                tube_item.got_item = True
 
 if __name__ == "__main__":
     main()
