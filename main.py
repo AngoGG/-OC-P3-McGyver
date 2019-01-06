@@ -9,19 +9,17 @@
 
 import pygame
 from pygame.locals import *
-from classes import Level, Character, Item
+from classes import character, items, level
 from constants import NEEDLE, ETHER, TUBE
 
 def main():
     """
         Main Method
     """
-
     pygame.init()
 
-
     #Generating Window
-    game = Level()
+    game = level.Level()
     window = game.window_generation()
     #Generating Home Menu
     home = 1
@@ -29,11 +27,11 @@ def main():
     #Generating Labyrinth Structure
     map_structure = game.get_labyrinth_structure()
     #Generating Character
-    mcgyver = Character(map_structure)
+    mcgyver = character.Character(map_structure)
     #Generating Items
-    needle_item = Item(map_structure, NEEDLE)
-    ether_item = Item(map_structure, ETHER)
-    tube_item = Item(map_structure, TUBE)
+    needle_item = items.Item(map_structure, NEEDLE)
+    ether_item = items.Item(map_structure, ETHER)
+    tube_item = items.Item(map_structure, TUBE)
     needle_item.item_position("needle")
     ether_item.item_position("ether")
     tube_item.item_position("tube")
