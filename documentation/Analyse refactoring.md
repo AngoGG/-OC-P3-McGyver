@@ -1,17 +1,14 @@
 # OpenClassrooms Project: McGyver
 
 ## Informations
-    @description    This Document will contain all the scope and analysis
-                    of the OpenClassrooms "McGyver" Project.
+    @description    Pistes de refactorisation pour le programme McGyver.
     @author         Anthony Gomes <anthony.gomes@afnor.org>
-    @version        0.1
-    @date           2018-12-22
-    @notes          cd D:/[OC]Formation_Python/Projet_3/[Projet]McGyver
-    @note           0.1 (2018-12-22) : Document initialisation after
-                    first read of the statement of the project
+    @version        1.0
+    @date           2018-01-21
+    @note           1.0 (2018-01-21) : Version initiale
 
 
-## scope
+## Scope
 
 Suite à la première version du jeu remplissant le CDC, je ne suis pas content de la structure actuelle du code qui bien que fonctionnant n'a pas vraiment de logique, ce qui a été confirmé par les retours de Sébastien Declercq, collègue développeur suivant également la formation OC, et d'Olivier mon mentor :
 - Classes à multiples rôles
@@ -20,34 +17,41 @@ Suite à la première version du jeu remplissant le CDC, je ne suis pas content 
 - Multiplication inutile de boucles
 - Code non PEP8
 
-**Voici la nouvelle structure du code suite à réflexion:**
+## Voici la nouvelle structure du code suite à réflexion:
+
 ## Class Game
 Nouvelle classe principale du code, servira à piloter de manière générale le jeu:
 - Gestion du Jeu (Boucles Home, Jeu, Fin de Jeu)
 - Gestion des inputs et condition de victoire
-## Class Map_level
+
+## [OK] Class Map_level
 - Parsing input Labyrinth
 - Generation du level
   - Structure labyrinth (wall, Zones de déplacement, ajout des zones de déplacement libres dans une liste afin de gérer le positionnement aléatoire des items
     liste afin )
-  - Calcul Position mcgyver
   - Calcul position des items
-  - Calcul position Guard
-## Class Character
+=> OK pour cette classes
+
+## [OK] Class Character
 - Position actuelle du personnage
 - Gestion des items du personnage
+=> OK pour cette classes
+
 ## Class Display
 - Affichage Home
 - Affichage Game level (Character.items en attribut pour gérer l'affichage des items)
 - Affichage End
   - Si Win = true, affichage écran Win
   - Si Win = false, affichage écran Lose
-## Class Constants
+
+## [OK] Class Constants
 - Liste des items en json
 - Liens vers les images
 - Taille sprite
 
-**Fonctionnement attendu du programme**
+=> OK pour cette classe
+
+## Fonctionnement attendu du programme
 1. Lancement du jeu, affichage du menu (via Display.Home) variage game = 0
 2. Lancement de la partie, passage game = 1, entrée boucle Game:
   - Map_level
@@ -70,3 +74,19 @@ possédés par le personnage comme dans la version actuelle
 
 A valider toutefois avant de lancer la refactorisation du code (qui sera effectué sur une
   branche refactoring afin de garder la version actuelle clean le temps de valider la nouvelle)
+
+## Notes par SDQ sur cette version
+
+On met à jour game.status, au lieu d'avoir des variables à 0/1 pour gérer la boucle de jeu:
+
+```
+class Constants:
+  INSIDE_GAME: int = 0
+  OUTSIDE_GAME: int = 1
+
+class Game:
+  def __init__(self) -> None:
+      self.status: int = Constants.INSIDE_GAME
+
+while game.status == Constants.OUTSIDE_GAME
+```

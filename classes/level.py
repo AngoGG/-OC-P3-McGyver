@@ -1,63 +1,77 @@
 """
     Will contain all the program classes
 """
-import pygame
-from pygame.locals import *
-from constants import SPRITE_SIZE, FILE, WALL, FLOOR, GUARD
+import random
+from classes.constants import Constants
+from classes.character import NewCharacter
 
-class Level:
+
+class Newlevel:
     """
-        Generation of the Labyrinth Design from a flat file
+        Parsing Input Labyrinth
+        Level Structure Generation
+            Wall, Moving Zone, Guard, Character
+            Return list of empty zone for items Generation
+        Item position Generation
+        Retour Structure finale
     """
+
     def __init__(self):
-        self.file = FILE
+        self.file = Constants.FILE
         self.level_structure = []
+        self.empty_cells = []
+        self.character_start = []
 
-    @classmethod
-    def window_generation(cls):
+    def get_structure(self):
         """
-            Window Generation, does'nt work at the moment,
-            Cant get the result back to use it in show method
-        """
-        return pygame.display.set_mode((450, 480))
-
-    def get_labyrinth_structure(self):
-        """
-            Labyrinth data recuperation from file
+            Parsing File, return Structure List
+            Update empty_cell
         """
         with open(self.file, "r") as fichier:
             level_structure = []
+            empty_cell = []
+            abscissa = 0
+            ordonate = 0
             for line in fichier:
                 line_level = []
                 for sprite in line:
                     if sprite != "\n":
-                        line_level.append(sprite)
+                        if sprite in ("0", "G"):
+                            line_level.append(sprite)
+                            abscissa += 1
+                        elif sprite == "C":
+                            character_start = [abscissa, ordonate]
+                            line_level.append(sprite)
+                            abscissa += 1
+                        elif sprite == "1":
+                            empty_cell.append([abscissa, ordonate])
+                            line_level.append(sprite)
+                            abscissa += 1
                 level_structure.append(line_level)
+                ordonate += 1
+                abscissa = 0
             self.level_structure = level_structure
+            self.empty_cells = empty_cell
+            self.character_start = character_start
+            Newlevel.put_item_on_map(self)
             return self.level_structure
 
-    def set_labyrinth(self, window):
+    def put_item_on_map(self):
         """
-            Generation of the map using map_data
-                - Add image to each part of the map, basically wall, floor & guardian for the finish
-                - Starting from top left with line & sprite = 0, then go for line after line filling
+            Place each item on an empty cell
         """
-        wall = pygame.image.load(WALL).convert()
-        floor = pygame.image.load(FLOOR).convert()
-        guard = pygame.image.load(GUARD).convert_alpha()
+        for item in Constants.ITEMS:
+            item_cell = random.choice(self.empty_cells)
+            self.empty_cells.remove(item_cell)
+            self.level_structure[int(item_cell[0])][int(item_cell[1])] = item["map"]
 
-        line_number = 0
-        for line in self.level_structure:
-            case_number = 0
-            for sprite in line:
-                abscissa = case_number * SPRITE_SIZE
-                ordinate = line_number * SPRITE_SIZE
-                if sprite == "0":
-                    window.blit(wall, (abscissa, ordinate))
-                elif sprite in ("C", "I", "1"):
-                    window.blit(floor, (abscissa, ordinate))
-                elif sprite == "G":
-                    window.blit(floor, (abscissa, ordinate))
-                    window.blit(guard, (abscissa, ordinate))
-                case_number += 1
-            line_number += 1
+    def character_move(self):
+        """
+            DocString
+        """
+
+    def character_position(self):
+        """
+            DocString
+        """
+        return self.character_start

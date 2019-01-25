@@ -4,9 +4,8 @@
         - Display the image of each item if they are collected or not
 """
 from random import randint
-import pygame
 from pygame.locals import *
-from constants import SPRITE_SIZE, SYRINGE
+from classes.constants import Constants
 
 class Item:
     """
@@ -17,7 +16,7 @@ class Item:
             Init
         """
         self.image = pygame.image.load(item).convert_alpha()
-        self.syringe_image = pygame.image.load(SYRINGE).convert_alpha()
+        self.syringe_image = pygame.image.load(Constants.SYRINGE).convert_alpha()
         self.map = map_structure
         self.pixel_x = 0
         self.pixel_y = 0
@@ -34,8 +33,8 @@ class Item:
                 rand_ligne = randint(0, 14)
                 rand_case = randint(0, 13)
                 if self.map[rand_ligne][rand_case] == "1":
-                    self.pixel_x = rand_case * SPRITE_SIZE
-                    self.pixel_y = rand_ligne * SPRITE_SIZE
+                    self.pixel_x = rand_case * Constants.SPRITE_SIZE
+                    self.pixel_y = rand_ligne * Constants.SPRITE_SIZE
                     ok_position = True
                     # We replace the sprite to ensure we cannot get 2 item on it
                     self.map[rand_ligne][rand_case] = "I"
@@ -45,8 +44,8 @@ class Item:
                 rand_ligne = randint(0, 14)
                 rand_case = randint(0, 13)
                 if self.map[rand_ligne][rand_case] == "1":
-                    self.pixel_x = rand_case * SPRITE_SIZE
-                    self.pixel_y = rand_ligne * SPRITE_SIZE
+                    self.pixel_x = rand_case * Constants.SPRITE_SIZE
+                    self.pixel_y = rand_ligne * Constants.SPRITE_SIZE
                     ok_position = True
                     # We replace the sprite to ensure we cannot get 2 item on it
                     self.map[rand_ligne][rand_case] = "I"
@@ -56,8 +55,8 @@ class Item:
                 rand_ligne = randint(0, 14)
                 rand_case = randint(0, 13)
                 if self.map[rand_ligne][rand_case] == "1":
-                    self.pixel_x = rand_case * SPRITE_SIZE
-                    self.pixel_y = rand_ligne * SPRITE_SIZE
+                    self.pixel_x = rand_case * Constants.SPRITE_SIZE
+                    self.pixel_y = rand_ligne * Constants.SPRITE_SIZE
                     ok_position = True
                     # We replace the sprite to ensure we cannot get 2 item on it
                     self.map[rand_ligne][rand_case] = "I"
