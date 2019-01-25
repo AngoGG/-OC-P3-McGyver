@@ -4,8 +4,9 @@
 import pygame
 from pygame.locals import *
 from classes.constants import Constants
+from classes.level import *
 
-class NewCharacter():
+class NewCharacter:
     """
         Main Character class
         Generation and motion management
@@ -27,6 +28,10 @@ class NewCharacter():
     def move(self, direction):
         """
             Make the character move
+        """
+        level_structure = Newlevel.get_level_structure(self)
+        print("Level structure => " + level_structure)
+
         """
         if direction == K_RIGHT:
             #Check that he wont get outside the Screen
@@ -57,6 +62,22 @@ class NewCharacter():
                 if self.map[self.ordinate-1][self.abscissa] != "0":
                     self.ordinate -= 1
                     self.pixel_y = self.ordinate * Constants.SPRITE_SIZE
+        """
+    def character_start_position(self, position):
+        """
+            DocString
+        """
+        print(position)
+        self.position = position
+        self.abscissa = position[0]
+        self.ordinate = position[1]
+
+    def character_position(self):
+        """
+            DocSring
+        """
+        return self.position
+
 
 
 

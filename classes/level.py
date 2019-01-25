@@ -52,8 +52,11 @@ class Newlevel:
                 abscissa = 0
             self.level_structure = level_structure
             self.empty_cells = empty_cell
+
             self.character_start = character_start
+            NewCharacter.character_start_position(self, character_start)
             Newlevel.put_item_on_map(self)
+
             return self.level_structure
 
     def put_item_on_map(self):
@@ -65,13 +68,14 @@ class Newlevel:
             self.empty_cells.remove(item_cell)
             self.level_structure[int(item_cell[0])][int(item_cell[1])] = item["map"]
 
-    def character_move(self):
-        """
-            DocString
-        """
-
     def character_position(self):
         """
             DocString
         """
         return self.character_start
+
+    def get_level_structure(self):
+        """
+            DocString
+        """
+        return self.level_structure

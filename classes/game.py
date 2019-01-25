@@ -5,7 +5,6 @@
 import pygame
 from pygame.locals import *
 from classes.display import Display
-from classes.level import Newlevel
 from classes.character import NewCharacter
 
 class Game:
