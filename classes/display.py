@@ -4,7 +4,6 @@
 import pygame
 from pygame.locals import *
 from classes.constants import Constants
-from classes.level import Newlevel
 
 class Display:
     """
@@ -14,70 +13,74 @@ class Display:
     def __init__(self):
         self.level_structure = []
         self.height = Constants.SPRITES_NUMBER * Constants.SPRITE_SIZE
-        self.width = Constants.SPRITES_NUMBER * Constants.SPRITE_SIZE
+        self.width = (Constants.SPRITES_NUMBER +1) * Constants.SPRITE_SIZE
 
+    @property
     def window_generation(self):
         """
             Window Generation, does'nt work at the moment,
             Cant get the result back to use it in show method
         """
+        pygame.display.set_caption("OpenClassrooms P3 McGyver !")
         return pygame.display.set_mode((self.height, self.width))
 
-    @classmethod
-    def display_game(cls, location, window):
+    @staticmethod
+    def display_game(location, window):
         """
             DocSring
         """
         if location == "home":
-            image = pygame.image.load("images/mcgyver_home.png").convert()
+            image = pygame.image.load(Constants.HOME).convert()
             window.blit(image, (0, 0))  # displaying home screen
             pygame.display.flip()  # window refreshing
         elif location == "end":
             window.pygame.blit(Constants.END, (0, 0))  # displaying home screen
+            window.blit(image, (0, 0))  # displaying home screen
+            pygame.display.flip()  # window refreshing
 
-    def display_level(self, window):
+    def display_level(self, level, character, window):
         """
-            DocSring
+            Display all the Game images while parsing the structure of the level
+            Could be reduce
         """
-        level = Newlevel()
-        self.level_structure = level.get_structure()
-        character = level.character_position()
-        character_pixel_x = character[0]
-        character_pixel_y = character[1]
         line_number = 0
-        for line in self.level_structure:
+        for line in level.get_map_structure:
             case_number = 0
             for sprite in line:
-                abscissa = case_number * Constants.SPRITE_SIZE
-                ordinate = line_number * Constants.SPRITE_SIZE
+                x = case_number * Constants.SPRITE_SIZE
+                y = line_number * Constants.SPRITE_SIZE
                 if sprite == "0":
                     window.blit(pygame.image.load(Constants.WALL).convert(),
-                                (abscissa, ordinate))
+                                (x, y))
                 elif sprite == "N":
                     window.blit(pygame.image.load(Constants.FLOOR).convert(),
-                                (abscissa, ordinate))
-                    window.blit(pygame.image.load(Constants.ITEMS[0]['image'])
-                                .convert(), (abscissa, ordinate))
+                                (x, y))
+                    if "NEEDLE" not in character.character_items:
+                        window.blit(pygame.image.load(Constants.ITEMS[0]['image'])
+                                    .convert(), (x, y))
                 elif sprite == "E":
                     window.blit(pygame.image.load(Constants.FLOOR).convert(),
-                                (abscissa, ordinate))
-                    window.blit(pygame.image.load(Constants.ITEMS[1]['image'])
-                                .convert(), (abscissa, ordinate))
+                                (x, y))
+                    if "ETHER" not in character.character_items:
+                        window.blit(pygame.image.load(Constants.ITEMS[1]['image'])
+                                    .convert(), (x, y))
                 elif sprite == "T":
                     window.blit(pygame.image.load(Constants.FLOOR).convert(),
-                                (abscissa, ordinate))
-                    window.blit(pygame.image.load(Constants.ITEMS[2]['image'])
-                                .convert(), (abscissa, ordinate))
+                                (x, y))
+                    if "TUBE" not in character.character_items:
+                        window.blit(pygame.image.load(Constants.ITEMS[2]['image'])
+                                    .convert(), (x, y))
                 elif sprite in ("C", "1"):
                     window.blit(pygame.image.load(Constants.FLOOR).convert(),
-                                (abscissa, ordinate))
+                                (x, y))
                 elif sprite == "G":
                     window.blit(pygame.image.load(Constants.FLOOR).convert(),
-                                (abscissa, ordinate))
+                                (x, y))
                     window.blit(pygame.image.load(Constants.GUARD).convert(),
-                                (abscissa, ordinate))
+                                (x, y))
                 case_number += 1
             line_number += 1
             window.blit(pygame.image.load(Constants.CHARACTER).convert(),
-                        (character_pixel_x, character_pixel_y))
-        pygame.display.flip()  # window refreshing
+                        (character.character_position[0] * Constants.SPRITE_SIZE,
+                         character.character_position[1] * Constants.SPRITE_SIZE))
+            pygame.display.flip()  # window refreshing

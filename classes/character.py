@@ -4,135 +4,96 @@
 import pygame
 from pygame.locals import *
 from classes.constants import Constants
-from classes.level import *
-
-class NewCharacter:
-    """
-        Main Character class
-        Generation and motion management
-    """
-    def __init__(self):
-        """
-            Actual characters position
-        """
-        self.items = []
-        self.position = []
-
-    def add_item(self, item):
-        """
-            Update item List when character find one
-        """
-        self.items.append(item)
-        return self.items
-
-    def move(self, direction):
-        """
-            Make the character move
-        """
-        level_structure = Newlevel.get_level_structure(self)
-        print("Level structure => " + level_structure)
-
-        """
-        if direction == K_RIGHT:
-            #Check that he wont get outside the Screen
-            if self.abscissa < (constants.SPRITES_NUMBER - 1):
-                #Check that he wont go on the wall, if not move and set position
-                if self.map[self.ordinate][self.abscissa+1] != "0":
-                    self.abscissa += 1
-                    self.pixel_x = self.abscissa * Constants.SPRITE_SIZE
-        elif direction == K_LEFT:
-            #Check that he wont get outside the Screen
-            if self.abscissa > 0:
-                #Check that he wont go on the wall, if not move and set position
-                if self.map[self.ordinate][self.abscissa-1] != "0":
-                    self.abscissa -= 1
-                    self.pixel_x = self.abscissa * Constants.SPRITE_SIZE
-        elif direction == K_DOWN:
-            #Check that he wont get outside the Screen
-            if self.ordinate < (constants.SPRITES_NUMBER - 1):
-                #Check that he wont go on the wall, if not move and set position
-                if self.map[self.ordinate+1][self.abscissa] != "0":
-                    self.ordinate += 1
-                    self.pixel_y = self.ordinate * Constants.SPRITE_SIZE
-
-        elif direction == K_UP:
-            #Check that he wont get outside the Screen
-            if self.ordinate > 0:
-                #Check that he wont go on the wall, if not move and set position
-                if self.map[self.ordinate-1][self.abscissa] != "0":
-                    self.ordinate -= 1
-                    self.pixel_y = self.ordinate * Constants.SPRITE_SIZE
-        """
-    def character_start_position(self, position):
-        """
-            DocString
-        """
-        print(position)
-        self.position = position
-        self.abscissa = position[0]
-        self.ordinate = position[1]
-
-    def character_position(self):
-        """
-            DocSring
-        """
-        return self.position
-
-
-
+from classes.level import Level
 
 class Character:
     """
         Main Character class
         Generation and motion management
     """
+    def __init__(self, level):
+        """
+            Actual characters position
+        """
+        self.items = []
+        self.map = level.get_map_structure
+        self.position = level.get_character_start
+        self.empty_cells = level.get_empty_cells
+        self.item_cells = level.item_position
 
-    def __init__(self, map_structure):
-        #Recupération de la position du personnage en case et en pixel
-        self.abscissa = 0
-        self.ordinate = 0
-        self.pixel_x = 0
-        self.pixel_y = 0
-        self.map = map_structure
-        self.image = pygame.image.load(Constants.MCGYVER).convert_alpha()
+    def add_item(self, item):
+        """
+            Update item List when character find one
+        """
+        self.items.append(item)
 
     def move(self, direction):
         """
-            Make the character move
+            DocSring
         """
         if direction == K_RIGHT:
-            #Check that he wont get outside the Screen
-            if self.abscissa < (constants.SPRITES_NUMBER - 1):
-                #Check that he wont go on the wall, if not move and set position
-                if self.map[self.ordinate][self.abscissa+1] != "0":
-                    self.abscissa += 1
-                    self.pixel_x = self.abscissa * Constants.SPRITE_SIZE
+            new_position = [self.position[0] +1, self.position[1]]
+            if new_position in self.empty_cells:
+                self.position = new_position
+                if self.map[new_position[1]][new_position[0]] == "N":
+                    if Constants.ITEMS[0]['item'] not in self.items:
+                        self.items.append(Constants.ITEMS[0]['item'])
+                elif self.map[new_position[1]][new_position[0]] == "E":
+                    if Constants.ITEMS[1]['item'] not in self.items:
+                        self.items.append(Constants.ITEMS[1]['item'])
+                elif self.map[new_position[1]][new_position[0]] == "T":
+                    if Constants.ITEMS[2]['item'] not in self.items:
+                        self.items.append(Constants.ITEMS[2]['item'])
         elif direction == K_LEFT:
-            #Check that he wont get outside the Screen
-            if self.abscissa > 0:
-                #Check that he wont go on the wall, if not move and set position
-                if self.map[self.ordinate][self.abscissa-1] != "0":
-                    self.abscissa -= 1
-                    self.pixel_x = self.abscissa * Constants.SPRITE_SIZE
-        elif direction == K_DOWN:
-            #Check that he wont get outside the Screen
-            if self.ordinate < (constants.SPRITES_NUMBER - 1):
-                #Check that he wont go on the wall, if not move and set position
-                if self.map[self.ordinate+1][self.abscissa] != "0":
-                    self.ordinate += 1
-                    self.pixel_y = self.ordinate * Constants.SPRITE_SIZE
-
+            new_position = [self.position[0] -1, self.position[1]]
+            if new_position in self.empty_cells:
+                self.position = new_position
+                if self.map[new_position[1]][new_position[0]] == "N":
+                    if Constants.ITEMS[0]['item'] not in self.items:
+                        self.items.append(Constants.ITEMS[0]['item'])
+                elif self.map[new_position[1]][new_position[0]] == "E":
+                    if Constants.ITEMS[1]['item'] not in self.items:
+                        self.items.append(Constants.ITEMS[1]['item'])
+                elif self.map[new_position[1]][new_position[0]] == "T":
+                    if Constants.ITEMS[2]['item'] not in self.items:
+                        self.items.append(Constants.ITEMS[2]['item'])
         elif direction == K_UP:
-            #Check that he wont get outside the Screen
-            if self.ordinate > 0:
-                #Check that he wont go on the wall, if not move and set position
-                if self.map[self.ordinate-1][self.abscissa] != "0":
-                    self.ordinate -= 1
-                    self.pixel_y = self.ordinate * Constants.SPRITE_SIZE
+            new_position = [self.position[0], self.position[1] -1]
+            if new_position in self.empty_cells:
+                self.position = new_position
+                if self.map[new_position[1]][new_position[0]] == "N":
+                    if Constants.ITEMS[0]['item'] not in self.items:
+                        self.items.append(Constants.ITEMS[0]['item'])
+                elif self.map[new_position[1]][new_position[0]] == "E":
+                    if Constants.ITEMS[1]['item'] not in self.items:
+                        self.items.append(Constants.ITEMS[1]['item'])
+                elif self.map[new_position[1]][new_position[0]] == "T":
+                    if Constants.ITEMS[2]['item'] not in self.items:
+                        self.items.append(Constants.ITEMS[2]['item'])
+        elif direction == K_DOWN:
+            new_position = [self.position[0], self.position[1] +1]
+            if new_position in self.empty_cells:
+                self.position = new_position
+                if self.map[new_position[1]][new_position[0]] == "N":
+                    if Constants.ITEMS[0]['item'] not in self.items:
+                        self.items.append(Constants.ITEMS[0]['item'])
+                elif self.map[new_position[1]][new_position[0]] == "E":
+                    if Constants.ITEMS[1]['item'] not in self.items:
+                        self.items.append(Constants.ITEMS[1]['item'])
+                elif self.map[new_position[1]][new_position[0]] == "T":
+                    if Constants.ITEMS[2]['item'] not in self.items:
+                        self.items.append(Constants.ITEMS[2]['item'])
 
     @property
-    def position(self):
+    def character_position(self):
         """
-            Characters position, for image bliting
+            DocSring
         """
-        return [self.pixel_x, self.pixel_y]
+        return self.position
+
+    @property
+    def character_items(self):
+        """
+            DocSring
+        """
+        return self.items

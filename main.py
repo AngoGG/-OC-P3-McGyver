@@ -3,14 +3,7 @@
     This will contains the main script for the McGyver Labyrinth Game
     First we gonna start to set up a basic non object code
 """
-
-#Pygame and classes/constants import
-#Window initialisation
-
-import pygame
-from pygame.locals import *
 from classes.game import Game
-from classes.character import NewCharacter
 
 def main():
     """

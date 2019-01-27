@@ -24,18 +24,16 @@ Nouvelle classe principale du code, servira à piloter de manière générale le
 - Gestion du Jeu (Boucles Home, Jeu, Fin de Jeu)
 - Gestion des inputs et condition de victoire
 
-## [OK] Class Map_level
+## Class Level
 - Parsing input Labyrinth
 - Generation du level
   - Structure labyrinth (wall, Zones de déplacement, ajout des zones de déplacement libres dans une liste afin de gérer le positionnement aléatoire des items
     liste afin )
   - Calcul position des items
-=> OK pour cette classes
 
-## [OK] Class Character
+## Class Character
 - Position actuelle du personnage
 - Gestion des items du personnage
-=> OK pour cette classes
 
 ## Class Display
 - Affichage Home

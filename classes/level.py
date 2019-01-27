@@ -3,17 +3,15 @@
 """
 import random
 from classes.constants import Constants
-from classes.character import NewCharacter
 
-
-class Newlevel:
+class Level:
     """
         Parsing Input Labyrinth
         Level Structure Generation
             Wall, Moving Zone, Guard, Character
             Return list of empty zone for items Generation
         Item position Generation
-        Retour Structure finale
+        Character starting position
     """
 
     def __init__(self):
@@ -21,6 +19,8 @@ class Newlevel:
         self.level_structure = []
         self.empty_cells = []
         self.character_start = []
+        self.items_cells = []
+        self.end_level = []
 
     def get_structure(self):
         """
@@ -30,52 +30,74 @@ class Newlevel:
         with open(self.file, "r") as fichier:
             level_structure = []
             empty_cell = []
-            abscissa = 0
-            ordonate = 0
+            end_level = []
+            y = 0
             for line in fichier:
+                x = 0
                 line_level = []
                 for sprite in line:
                     if sprite != "\n":
-                        if sprite in ("0", "G"):
+                        if sprite == "0":
                             line_level.append(sprite)
-                            abscissa += 1
                         elif sprite == "C":
-                            character_start = [abscissa, ordonate]
+                            character_start = [x, y]
                             line_level.append(sprite)
-                            abscissa += 1
-                        elif sprite == "1":
-                            empty_cell.append([abscissa, ordonate])
+                        elif sprite in ("1", "G"):
+                            empty_cell.append([x, y])
                             line_level.append(sprite)
-                            abscissa += 1
+                            if sprite == "G":
+                                end_level = [x, y]
+                    x += 1
                 level_structure.append(line_level)
-                ordonate += 1
-                abscissa = 0
+                y += 1
+            #Care, level structure should be read as [y, x]
             self.level_structure = level_structure
             self.empty_cells = empty_cell
-
             self.character_start = character_start
-            NewCharacter.character_start_position(self, character_start)
-            Newlevel.put_item_on_map(self)
-
+            self.end_level = end_level
+            Level.put_item_on_map(self)
             return self.level_structure
 
     def put_item_on_map(self):
         """
             Place each item on an empty cell
         """
-        for item in Constants.ITEMS:
-            item_cell = random.choice(self.empty_cells)
-            self.empty_cells.remove(item_cell)
-            self.level_structure[int(item_cell[0])][int(item_cell[1])] = item["map"]
+        items_cells = random.sample(self.empty_cells, 3)
+        self.items_cells = items_cells
+        for i, item in enumerate(Constants.ITEMS):
+            self.level_structure[int(items_cells[i][1])][int(items_cells[i][0])] = item['map']
 
-    def character_position(self):
+    @property
+    def item_position(self):
+        """
+            On ne sait pas si on va avoir besoin de ça, à voir
+        """
+        return self.items_cells
+
+    @property
+    def get_character_start(self):
         """
             DocString
         """
         return self.character_start
 
-    def get_level_structure(self):
+    @property
+    def get_map_structure(self):
         """
             DocString
         """
         return self.level_structure
+
+    @property
+    def get_empty_cells(self):
+        """
+            DocString
+        """
+        return self.empty_cells
+
+    @property
+    def get_end_level(self):
+        """
+            DocString
+        """
+        return self.end_level
