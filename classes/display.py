@@ -58,18 +58,27 @@ class Display:
                     if "NEEDLE" not in character.character_items:
                         window.blit(pygame.image.load(Constants.ITEMS[0]['image'])
                                     .convert(), (x, y))
+                    else:
+                        window.blit(pygame.image.load(Constants.ITEMS[0]['image'])
+                                    .convert(), (0, 450))
                 elif sprite == "E":
                     window.blit(pygame.image.load(Constants.FLOOR).convert(),
                                 (x, y))
                     if "ETHER" not in character.character_items:
                         window.blit(pygame.image.load(Constants.ITEMS[1]['image'])
                                     .convert(), (x, y))
+                    else:
+                        window.blit(pygame.image.load(Constants.ITEMS[1]['image'])
+                                    .convert(), (30, 450))
                 elif sprite == "T":
                     window.blit(pygame.image.load(Constants.FLOOR).convert(),
                                 (x, y))
                     if "TUBE" not in character.character_items:
                         window.blit(pygame.image.load(Constants.ITEMS[2]['image'])
                                     .convert(), (x, y))
+                    else:
+                        window.blit(pygame.image.load(Constants.ITEMS[2]['image'])
+                                    .convert(), (60, 450))
                 elif sprite in ("C", "1"):
                     window.blit(pygame.image.load(Constants.FLOOR).convert(),
                                 (x, y))
@@ -80,7 +89,12 @@ class Display:
                                 (x, y))
                 case_number += 1
             line_number += 1
+
+            #Ajout Image Character
             window.blit(pygame.image.load(Constants.CHARACTER).convert(),
                         (character.character_position[0] * Constants.SPRITE_SIZE,
                          character.character_position[1] * Constants.SPRITE_SIZE))
+
+            #Gestion des items ramassés
+
             pygame.display.flip()  # window refreshing
