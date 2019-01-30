@@ -1,5 +1,5 @@
 """
-    Will contain all the program classes
+@desc    Only contain Class Display, see the description below
 """
 import pygame
 from pygame.locals import *
@@ -8,7 +8,7 @@ from classes.constants import Constants
 
 class Display:
     """
-        DocString
+    Pygame Display management
     """
     pygame.init()
 
@@ -48,9 +48,11 @@ class Display:
     @staticmethod
     def display_level(level, character, window):
         """
-            Display all the Game images while parsing the structure of the
-            level
-            Could be reduce
+            Display all the Game images from the structure level
+                and character position
+            @param  object  level       Contain level object
+            @param  object  characters  Contain character object
+            @param  object  window      Contain the pygame window
         """
         line_number = 0
         for line in level.get_map_structure:

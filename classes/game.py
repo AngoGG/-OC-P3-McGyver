@@ -1,22 +1,27 @@
 # coding: utf-8
 """
-    DocString
+@desc    Only contain Class Game, see the description below
 """
 import pygame
 from pygame.locals import *
-from classes.display import Display
 from classes.level import Level
 from classes.character import Character
+from classes.display import Display
 
 
 class Game:
     """
-        This class will drive the entire programm
+        Main Class of the programm, only contains def function
     """
+
     @staticmethod
     def play():
         """
-            DocSring
+        Drives the whole things:
+        - Game management (Home, Game, End)
+        - Launch the needed classes to play the game
+            (level/character/display)
+        - Pygame.event capture
         """
         game = Display()
         window = game.window_generation

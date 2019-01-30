@@ -1,11 +1,11 @@
 """
-    Will  constain all the params of the program
+@desc    Only contain Constants Classe, see the description below
 """
 
 
 class Constants():
     """
-        DocSring
+        Contain all the constants variables
     """
     SPRITES_NUMBER = 15
     SPRITE_SIZE = 30

@@ -1,14 +1,17 @@
 # coding: utf-8
 """
-    This will contains the main script for the McGyver Labyrinth Game
-    First we gonna start to set up a basic non object code
+@desc    OpenClassrooms third Projet code
+@author  Anthony Gomes <anthony.gomes@afnor.org>
+@version 2.0.0
+@date    2019-01-30
+@note    2.0.0 (2019-01-30) : Refactored Final, Version, comments to add
 """
 from classes.game import Game
 
 
 def main():
     """
-        Main Method
+    Main Method, just launches the Game class who drive the whole programm
     """
     game = Game()
     game.play()
