@@ -5,15 +5,17 @@ import pygame
 from pygame.locals import *
 from classes.constants import Constants
 
+
 class Display:
     """
         DocString
     """
     pygame.init()
+
     def __init__(self):
         self.level_structure = []
         self.height = Constants.SPRITES_NUMBER * Constants.SPRITE_SIZE
-        self.width = (Constants.SPRITES_NUMBER +1) * Constants.SPRITE_SIZE
+        self.width = (Constants.SPRITES_NUMBER + 1) * Constants.SPRITE_SIZE
 
     @property
     def window_generation(self):
@@ -31,16 +33,23 @@ class Display:
         """
         if location == "home":
             image = pygame.image.load(Constants.HOME).convert()
+            pygame.display.update(window.fill(0))  # displaying home screen
             window.blit(image, (0, 0))  # displaying home screen
             pygame.display.flip()  # window refreshing
-        elif location == "end":
-            window.pygame.blit(Constants.END, (0, 0))  # displaying home screen
+        elif location == "win":
+            image = pygame.image.load(Constants.WIN).convert()
+            window.blit(image, (0, 0))  # displaying home screen
+            pygame.display.flip()  # window refreshing
+        elif location == "lose":
+            image = pygame.image.load(Constants.LOSE).convert()
             window.blit(image, (0, 0))  # displaying home screen
             pygame.display.flip()  # window refreshing
 
-    def display_level(self, level, character, window):
+    @staticmethod
+    def display_level(level, character, window):
         """
-            Display all the Game images while parsing the structure of the level
+            Display all the Game images while parsing the structure of the
+            level
             Could be reduce
         """
         line_number = 0
@@ -56,29 +65,41 @@ class Display:
                     window.blit(pygame.image.load(Constants.FLOOR).convert(),
                                 (x, y))
                     if "NEEDLE" not in character.character_items:
-                        window.blit(pygame.image.load(Constants.ITEMS[0]['image'])
-                                    .convert(), (x, y))
+                        window.blit(
+                            pygame.image.load(
+                                Constants.ITEMS[0]['image'])
+                            .convert(), (x, y))
                     else:
-                        window.blit(pygame.image.load(Constants.ITEMS[0]['image'])
-                                    .convert(), (0, 450))
+                        window.blit(
+                            pygame.image.load(
+                                Constants.ITEMS[0]['image'])
+                            .convert(), (0, 450))
                 elif sprite == "E":
                     window.blit(pygame.image.load(Constants.FLOOR).convert(),
                                 (x, y))
                     if "ETHER" not in character.character_items:
-                        window.blit(pygame.image.load(Constants.ITEMS[1]['image'])
-                                    .convert(), (x, y))
+                        window.blit(
+                            pygame.image.load(
+                                Constants.ITEMS[1]['image'])
+                            .convert(), (x, y))
                     else:
-                        window.blit(pygame.image.load(Constants.ITEMS[1]['image'])
-                                    .convert(), (30, 450))
+                        window.blit(
+                            pygame.image.load(
+                                Constants.ITEMS[1]['image'])
+                            .convert(), (30, 450))
                 elif sprite == "T":
                     window.blit(pygame.image.load(Constants.FLOOR).convert(),
                                 (x, y))
                     if "TUBE" not in character.character_items:
-                        window.blit(pygame.image.load(Constants.ITEMS[2]['image'])
-                                    .convert(), (x, y))
+                        window.blit(
+                            pygame.image.load(
+                                Constants.ITEMS[2]['image'])
+                            .convert(), (x, y))
                     else:
-                        window.blit(pygame.image.load(Constants.ITEMS[2]['image'])
-                                    .convert(), (60, 450))
+                        window.blit(
+                            pygame.image.load(
+                                Constants.ITEMS[2]['image'])
+                            .convert(), (60, 450))
                 elif sprite in ("C", "1"):
                     window.blit(pygame.image.load(Constants.FLOOR).convert(),
                                 (x, y))
@@ -90,11 +111,13 @@ class Display:
                 case_number += 1
             line_number += 1
 
-            #Ajout Image Character
+            # Ajout Image Character
             window.blit(pygame.image.load(Constants.CHARACTER).convert(),
-                        (character.character_position[0] * Constants.SPRITE_SIZE,
-                         character.character_position[1] * Constants.SPRITE_SIZE))
+                        (character.character_position[0]
+                         * Constants.SPRITE_SIZE,
+                         character.character_position[1]
+                         * Constants.SPRITE_SIZE))
 
-            #Gestion des items ramassés
+            # Gestion des items ramassés
 
             pygame.display.flip()  # window refreshing

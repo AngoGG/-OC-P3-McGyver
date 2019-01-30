@@ -3,8 +3,7 @@
 """
 import pygame
 from pygame.locals import *
-from classes.constants import Constants
-from classes.level import Level
+
 
 class Character:
     """
@@ -32,57 +31,52 @@ class Character:
             DocSring
         """
         if direction == K_RIGHT:
-            new_position = [self.position[0] +1, self.position[1]]
+            new_position = [self.position[0] + 1, self.position[1]]
             if new_position in self.empty_cells:
                 self.position = new_position
                 if self.map[new_position[1]][new_position[0]] == "N":
-                    if Constants.ITEMS[0]['item'] not in self.items:
-                        self.items.append(Constants.ITEMS[0]['item'])
+                    Character.pick_up(self, "NEEDLE")
                 elif self.map[new_position[1]][new_position[0]] == "E":
-                    if Constants.ITEMS[1]['item'] not in self.items:
-                        self.items.append(Constants.ITEMS[1]['item'])
+                    Character.pick_up(self, "ETHER")
                 elif self.map[new_position[1]][new_position[0]] == "T":
-                    if Constants.ITEMS[2]['item'] not in self.items:
-                        self.items.append(Constants.ITEMS[2]['item'])
+                    Character.pick_up(self, "TUBE")
         elif direction == K_LEFT:
-            new_position = [self.position[0] -1, self.position[1]]
+            new_position = [self.position[0] - 1, self.position[1]]
             if new_position in self.empty_cells:
                 self.position = new_position
                 if self.map[new_position[1]][new_position[0]] == "N":
-                    if Constants.ITEMS[0]['item'] not in self.items:
-                        self.items.append(Constants.ITEMS[0]['item'])
+                    Character.pick_up(self, "NEEDLE")
                 elif self.map[new_position[1]][new_position[0]] == "E":
-                    if Constants.ITEMS[1]['item'] not in self.items:
-                        self.items.append(Constants.ITEMS[1]['item'])
+                    Character.pick_up(self, "ETHER")
                 elif self.map[new_position[1]][new_position[0]] == "T":
-                    if Constants.ITEMS[2]['item'] not in self.items:
-                        self.items.append(Constants.ITEMS[2]['item'])
+                    Character.pick_up(self, "TUBE")
         elif direction == K_UP:
-            new_position = [self.position[0], self.position[1] -1]
+            new_position = [self.position[0], self.position[1] - 1]
             if new_position in self.empty_cells:
                 self.position = new_position
                 if self.map[new_position[1]][new_position[0]] == "N":
-                    if Constants.ITEMS[0]['item'] not in self.items:
-                        self.items.append(Constants.ITEMS[0]['item'])
+                    Character.pick_up(self, "NEEDLE")
                 elif self.map[new_position[1]][new_position[0]] == "E":
-                    if Constants.ITEMS[1]['item'] not in self.items:
-                        self.items.append(Constants.ITEMS[1]['item'])
+                    Character.pick_up(self, "ETHER")
                 elif self.map[new_position[1]][new_position[0]] == "T":
-                    if Constants.ITEMS[2]['item'] not in self.items:
-                        self.items.append(Constants.ITEMS[2]['item'])
+                    Character.pick_up(self, "TUBE")
         elif direction == K_DOWN:
-            new_position = [self.position[0], self.position[1] +1]
+            new_position = [self.position[0], self.position[1] + 1]
             if new_position in self.empty_cells:
                 self.position = new_position
                 if self.map[new_position[1]][new_position[0]] == "N":
-                    if Constants.ITEMS[0]['item'] not in self.items:
-                        self.items.append(Constants.ITEMS[0]['item'])
+                    Character.pick_up(self, "NEEDLE")
                 elif self.map[new_position[1]][new_position[0]] == "E":
-                    if Constants.ITEMS[1]['item'] not in self.items:
-                        self.items.append(Constants.ITEMS[1]['item'])
+                    Character.pick_up(self, "ETHER")
                 elif self.map[new_position[1]][new_position[0]] == "T":
-                    if Constants.ITEMS[2]['item'] not in self.items:
-                        self.items.append(Constants.ITEMS[2]['item'])
+                    Character.pick_up(self, "TUBE")
+
+    def pick_up(self, item):
+        """
+            DocSring
+        """
+        if item not in self.items:
+            self.items.append(item)
 
     @property
     def character_position(self):

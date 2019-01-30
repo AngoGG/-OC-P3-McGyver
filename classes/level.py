@@ -4,6 +4,7 @@
 import random
 from classes.constants import Constants
 
+
 class Level:
     """
         Parsing Input Labyrinth
@@ -16,7 +17,7 @@ class Level:
 
     def __init__(self):
         self.file = Constants.FILE
-        self.level_structure = []
+        self.structure = []
         self.empty_cells = []
         self.character_start = []
         self.items_cells = []
@@ -28,7 +29,7 @@ class Level:
             Update empty_cell
         """
         with open(self.file, "r") as fichier:
-            level_structure = []
+            structure = []
             empty_cell = []
             end_level = []
             y = 0
@@ -48,15 +49,15 @@ class Level:
                             if sprite == "G":
                                 end_level = [x, y]
                     x += 1
-                level_structure.append(line_level)
+                structure.append(line_level)
                 y += 1
-            #Care, level structure should be read as [y, x]
-            self.level_structure = level_structure
+            # Care, level structure should be read as [y, x]
+            self.structure = structure
             self.empty_cells = empty_cell
             self.character_start = character_start
             self.end_level = end_level
             Level.put_item_on_map(self)
-            return self.level_structure
+            return self.structure
 
     def put_item_on_map(self):
         """
@@ -65,7 +66,8 @@ class Level:
         items_cells = random.sample(self.empty_cells, 3)
         self.items_cells = items_cells
         for i, item in enumerate(Constants.ITEMS):
-            self.level_structure[int(items_cells[i][1])][int(items_cells[i][0])] = item['map']
+            self.structure[int(items_cells[i]
+                               [1])][int(items_cells[i][0])] = item['map']
 
     @property
     def item_position(self):
@@ -86,7 +88,7 @@ class Level:
         """
             DocString
         """
-        return self.level_structure
+        return self.structure
 
     @property
     def get_empty_cells(self):
