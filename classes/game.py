@@ -25,55 +25,55 @@ class Game:
         """
         game = Display()
         window = game.window_generation
-        home = 1
-        play = 0
-        end = 0
+        home = True
+        play = False
+        end = False
         while home:
             pygame.time.Clock().tick(30)
             game.display_game("home", window)
             for event in pygame.event.get():
                 if event.type == QUIT:
-                    home = 0
+                    home = False
                 elif event.type == KEYDOWN:
                     if event.key == K_SPACE:
-                        home = 0
+                        home = False
                         level = Level()
                         level.get_structure()
                         character = Character(level)
                         game.display_level(level, character, window)
-                        play = 1
+                        play = True
         while play:
-            win = 0
-            lose = 0
-            end = 0
+            win = False
+            lose = False
+            end = False
             pygame.time.Clock().tick(30)
             for event in pygame.event.get():
                 if event.type == QUIT:
-                    play = 0
+                    play = False
                 elif event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
-                        play = 0
+                        play = False
                     else:
                         character.move(event.key)
             if character.character_position == level.get_end_level:
                 if len(character.items) == 3:
-                    play = 0
-                    win = 1
-                    end = 1
+                    play = False
+                    win = True
+                    end = True
                 else:
-                    play = 0
-                    lose = 1
-                    end = 1
+                    play = False
+                    lose = True
+                    end = True
             else:
                 game.display_level(level, character, window)
         while end:
-            if win == 1:
+            if win is True:
                 game.display_game("win", window)
                 for event in pygame.event.get():
                     if event.type == QUIT:
-                        end = 0
-            elif lose == 1:
+                        end = False
+            elif lose is True:
                 game.display_game("lose", window)
                 for event in pygame.event.get():
                     if event.type == QUIT:
-                        end = 0
+                        end = False

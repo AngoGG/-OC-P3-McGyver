@@ -20,8 +20,8 @@ class Display:
     @property
     def window_generation(self):
         """
-            Window Generation, does'nt work at the moment,
-            Cant get the result back to use it in show method
+        Window Generation, does'nt work at the moment,
+        Cant get the result back to use it in show method
         """
         pygame.display.set_caption("OpenClassrooms P3 McGyver !")
         return pygame.display.set_mode((self.height, self.width))
@@ -48,11 +48,11 @@ class Display:
     @staticmethod
     def display_level(level, character, window):
         """
-            Display all the Game images from the structure level
-                and character position
-            @param  object  level       Contain level object
-            @param  object  characters  Contain character object
-            @param  object  window      Contain the pygame window
+        Display all the Game images from the structure level
+            and character position
+        @param  object  level       Contain level object
+        @param  object  characters  Contain character object
+        @param  object  window      Contain the pygame window
         """
         line_number = 0
         for line in level.get_map_structure:
@@ -113,13 +113,10 @@ class Display:
                 case_number += 1
             line_number += 1
 
-            # Ajout Image Character
             window.blit(pygame.image.load(Constants.CHARACTER).convert(),
                         (character.character_position[0]
                          * Constants.SPRITE_SIZE,
                          character.character_position[1]
                          * Constants.SPRITE_SIZE))
 
-            # Gestion des items ramassés
-
-            pygame.display.flip()  # window refreshing
+            pygame.display.flip()
