@@ -11,7 +11,7 @@ from classes.display import Display
 
 class Game:
     """
-        Main Class of the programm, only contains def function
+    Main Class of the programm, only contains def function
     """
 
     @staticmethod
@@ -27,7 +27,6 @@ class Game:
         window = game.window_generation
         home = True
         play = False
-        end = False
         while home:
             pygame.time.Clock().tick(30)
             game.display_game("home", window)
@@ -43,9 +42,9 @@ class Game:
                         game.display_level(level, character, window)
                         play = True
         while play:
-            win = False
-            lose = False
-            end = False
+            win = lose = end = False
+            #lose = False
+            #end = False
             pygame.time.Clock().tick(30)
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -58,12 +57,12 @@ class Game:
             if character.character_position == level.get_end_level:
                 if len(character.items) == 3:
                     play = False
-                    win = True
-                    end = True
+                    end = win = True
+                    #end = True
                 else:
                     play = False
-                    lose = True
-                    end = True
+                    end = lose = True
+                    #end = True
             else:
                 game.display_level(level, character, window)
         while end:
