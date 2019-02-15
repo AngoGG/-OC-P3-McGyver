@@ -20,8 +20,7 @@ class Display:
     @property
     def window_generation(self):
         """
-        Window Generation, does'nt work at the moment,
-        Cant get the result back to use it in show method
+        Window Generation
         """
         pygame.display.set_caption("OpenClassrooms P3 McGyver !")
         return pygame.display.set_mode((self.height, self.width))
@@ -29,7 +28,7 @@ class Display:
     @staticmethod
     def display_game(location, window):
         """
-            DocSring
+        Start/End display Management according to the state of the game
         """
         if location == "home":
             image = pygame.image.load(Constants.HOME).convert()
