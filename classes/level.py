@@ -26,9 +26,6 @@ class Level:
         @return list    structure   Structure of the labyrinth
         """
         with open(self.file, "r") as fichier:
-            structure = []
-            empty_cell = []
-            end_level = []
             y = 0
             for line in fichier:
                 x = 0
@@ -37,21 +34,16 @@ class Level:
                     if sprite == "0":
                         line_level.append(sprite)
                     elif sprite == "C":
-                        character_start = [x, y]
+                        self.character_start = [x, y]
                         line_level.append(sprite)
                     elif sprite in ("1", "G"):
-                        empty_cell.append([x, y])
+                        self.empty_cells.append([x, y])
                         line_level.append(sprite)
                         if sprite == "G":
-                            end_level = [x, y]
+                            self.end_level = [x, y]
                     x += 1
-                structure.append(line_level)
+                self.structure.append(line_level)
                 y += 1
-            # Care, level structure should be read as [y, x]
-            self.structure = structure
-            self.empty_cells = empty_cell
-            self.character_start = character_start
-            self.end_level = end_level
             self.put_item_on_map()
             return self.structure
 

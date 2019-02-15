@@ -43,8 +43,6 @@ class Game:
                         play = True
         while play:
             win = lose = end = False
-            #lose = False
-            #end = False
             pygame.time.Clock().tick(30)
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -58,11 +56,9 @@ class Game:
                 if len(character.items) == 3:
                     play = False
                     end = win = True
-                    #end = True
                 else:
                     play = False
                     end = lose = True
-                    #end = True
             else:
                 game.display_level(level, character, window)
         while end:
