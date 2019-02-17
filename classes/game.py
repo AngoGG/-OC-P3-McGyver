@@ -59,8 +59,7 @@ class Game:
                 else:
                     play = False
                     end = lose = True
-            else:
-                game.display_level(level, character, window)
+            game.display_level(level, character, window)
         while end:
             if win is True:
                 game.display_game("win", window)

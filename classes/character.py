@@ -19,6 +19,7 @@ class Character:
         self.position = level.get_character_start
         self.empty_cells = level.get_empty_cells
         self.item_cells = level.item_position
+        self.end_level = level.get_end_level
 
     def add_item(self, item):
         """
@@ -36,7 +37,8 @@ class Character:
         """
         if direction == K_RIGHT:
             new_position = [self.position[0] + 1, self.position[1]]
-            if new_position in self.empty_cells:
+            if (new_position in self.empty_cells
+                    or new_position == self.end_level):
                 self.position = new_position
                 if self.map[new_position[1]][new_position[0]] == "N":
                     self.pick_up("NEEDLE")
@@ -46,7 +48,8 @@ class Character:
                     self.pick_up("TUBE")
         elif direction == K_LEFT:
             new_position = [self.position[0] - 1, self.position[1]]
-            if new_position in self.empty_cells:
+            if (new_position in self.empty_cells
+                    or new_position == self.end_level):
                 self.position = new_position
                 if self.map[new_position[1]][new_position[0]] == "N":
                     self.pick_up("NEEDLE")
@@ -56,7 +59,8 @@ class Character:
                     self.pick_up("TUBE")
         elif direction == K_UP:
             new_position = [self.position[0], self.position[1] - 1]
-            if new_position in self.empty_cells:
+            if (new_position in self.empty_cells
+                    or new_position == self.end_level):
                 self.position = new_position
                 if self.map[new_position[1]][new_position[0]] == "N":
                     self.pick_up("NEEDLE")
@@ -66,7 +70,8 @@ class Character:
                     self.pick_up("TUBE")
         elif direction == K_DOWN:
             new_position = [self.position[0], self.position[1] + 1]
-            if new_position in self.empty_cells:
+            if (new_position in self.empty_cells
+                    or new_position == self.end_level):
                 self.position = new_position
                 if self.map[new_position[1]][new_position[0]] == "N":
                     self.pick_up("NEEDLE")

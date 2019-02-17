@@ -36,11 +36,12 @@ class Level:
                     elif sprite == "C":
                         self.character_start = [x, y]
                         line_level.append(sprite)
-                    elif sprite in ("1", "G"):
+                    elif sprite == "1":
                         self.empty_cells.append([x, y])
                         line_level.append(sprite)
-                        if sprite == "G":
-                            self.end_level = [x, y]
+                    elif sprite == "G":
+                        line_level.append(sprite)
+                        self.end_level = [x, y]
                     x += 1
                 self.structure.append(line_level)
                 y += 1
