@@ -21,13 +21,6 @@ class Character:
         self.item_cells = level.item_position
         self.end_level = level.get_end_level
 
-    def add_item(self, item):
-        """
-        Update Character item List when an item is found
-        @param string   Item found
-        """
-        self.items.append(item)
-
     def move(self, direction):
         """
         Movement management, check if aimed position is valid,
