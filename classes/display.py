@@ -65,7 +65,7 @@ class Display:
                 elif sprite == "N":
                     window.blit(pygame.image.load(Constants.FLOOR).convert(),
                                 (x, y))
-                    if "NEEDLE" not in character.character_items:
+                    if "NEEDLE" not in character.get_character_items:
                         window.blit(
                             pygame.image.load(
                                 Constants.ITEMS[0]['image'])
@@ -78,7 +78,7 @@ class Display:
                 elif sprite == "E":
                     window.blit(pygame.image.load(Constants.FLOOR).convert(),
                                 (x, y))
-                    if "ETHER" not in character.character_items:
+                    if "ETHER" not in character.get_character_items:
                         window.blit(
                             pygame.image.load(
                                 Constants.ITEMS[1]['image'])
@@ -91,7 +91,7 @@ class Display:
                 elif sprite == "T":
                     window.blit(pygame.image.load(Constants.FLOOR).convert(),
                                 (x, y))
-                    if "TUBE" not in character.character_items:
+                    if "TUBE" not in character.get_character_items:
                         window.blit(
                             pygame.image.load(
                                 Constants.ITEMS[2]['image'])

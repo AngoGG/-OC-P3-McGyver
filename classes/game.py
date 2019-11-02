@@ -52,7 +52,7 @@ class Game:
                         play = False
                     else:
                         character.move(event.key)
-            if character.character_position == level.get_end_level:
+            if character.get_character_position == level.get_end_level:
                 if len(character.items) == 3:
                     play = False
                     end = win = True
