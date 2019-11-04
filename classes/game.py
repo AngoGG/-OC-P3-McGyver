@@ -66,8 +66,14 @@ class Game:
                 for event in pygame.event.get():
                     if event.type == QUIT:
                         end = False
+                    elif event.type == KEYDOWN:
+                        if event.key == K_ESCAPE:
+                            end = False
             elif lose is True:
                 game.display_game("lose", window)
                 for event in pygame.event.get():
                     if event.type == QUIT:
                         end = False
+                    elif event.type == KEYDOWN:
+                        if event.key == K_ESCAPE:
+                            end = False
