@@ -48,6 +48,7 @@ class Level:
             self.put_item_on_map()
             return self.structure
 
+    @staticmethod
     def put_item_on_map(self):
         """
         Place each item on an empty cell
@@ -60,7 +61,7 @@ class Level:
                                [1])][int(items_cells[i][0])] = item['map']
 
     @property
-    def item_position(self):
+    def get_item_position(self):
         """
         @return list    Return the items position inside the labyrinth
         """
