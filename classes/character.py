@@ -18,7 +18,7 @@ class Character:
         self.map = level.get_map_structure
         self.position = level.get_character_start
         self.empty_cells = level.get_empty_cells
-        self.item_cells = level.item_position
+        self.item_cells = level.get_item_position
         self.end_level = level.get_end_level
 
     def move(self, direction):
