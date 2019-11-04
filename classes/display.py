@@ -113,9 +113,9 @@ class Display:
             line_number += 1
 
             window.blit(pygame.image.load(Constants.CHARACTER).convert(),
-                        (character.character_position[0]
+                        (character.get_character_position[0]
                          * Constants.SPRITE_SIZE,
-                         character.character_position[1]
+                         character.get_character_position[1]
                          * Constants.SPRITE_SIZE))
 
             pygame.display.flip()

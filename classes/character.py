@@ -24,7 +24,7 @@ class Character:
     def move(self, direction):
         """
         Movement management, check if aimed position is valid,
-        if yes, assign it as new position
+        if yes, assign it as new position and call check_item_on_position method
         @param string   Item found
         """
         if direction == K_RIGHT:
