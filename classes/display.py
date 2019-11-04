@@ -26,22 +26,28 @@ class Display:
         return pygame.display.set_mode((self.height, self.width))
 
     @staticmethod
+    def display_image(image, position, window):
+        """
+        Display game while moving on the board
+        @param  string  image     Path to the image to display
+        @param  tuple   position  Tuple containing abscissa and ordinate to display the image
+        """
+        window.blit(pygame.image.load(image).convert(),
+                                position)
+
+    @staticmethod
     def display_game(location, window):
         """
         Start/End display Management according to the state of the game
         """
         if location == "home":
-            image = pygame.image.load(Constants.HOME).convert()
-            pygame.display.update(window.fill(0))  # displaying home screen
-            window.blit(image, (0, 0))  # displaying home screen
+            Display.display_image(Constants.HOME, (0, 0), window)
             pygame.display.flip()  # window refreshing
         elif location == "win":
-            image = pygame.image.load(Constants.WIN).convert()
-            window.blit(image, (0, 0))  # displaying home screen
+            Display.display_image(Constants.WIN, (0, 0), window)
             pygame.display.flip()  # window refreshing
         elif location == "lose":
-            image = pygame.image.load(Constants.LOSE).convert()
-            window.blit(image, (0, 0))  # displaying home screen
+            Display.display_image(Constants.LOSE, (0, 0), window)
             pygame.display.flip()  # window refreshing
 
     @staticmethod
@@ -60,62 +66,36 @@ class Display:
                 x = case_number * Constants.SPRITE_SIZE
                 y = line_number * Constants.SPRITE_SIZE
                 if sprite == "0":
-                    window.blit(pygame.image.load(Constants.WALL).convert(),
-                                (x, y))
+                    Display.display_image(Constants.WALL, (x, y), window)
                 elif sprite == "N":
-                    window.blit(pygame.image.load(Constants.FLOOR).convert(),
-                                (x, y))
+                    Display.display_image(Constants.FLOOR, (x, y), window)
                     if "NEEDLE" not in character.get_character_items:
-                        window.blit(
-                            pygame.image.load(
-                                Constants.ITEMS[0]['image'])
-                            .convert(), (x, y))
+                        Display.display_image(Constants.ITEMS[0]['image'], (x, y), window)
                     else:
-                        window.blit(
-                            pygame.image.load(
-                                Constants.ITEMS[0]['image'])
-                            .convert(), (0, 450))
+                        Display.display_image(Constants.ITEMS[0]['image'], (0, 450), window)
                 elif sprite == "E":
-                    window.blit(pygame.image.load(Constants.FLOOR).convert(),
-                                (x, y))
+                    Display.display_image(Constants.FLOOR, (x, y), window)
                     if "ETHER" not in character.get_character_items:
-                        window.blit(
-                            pygame.image.load(
-                                Constants.ITEMS[1]['image'])
-                            .convert(), (x, y))
+                        Display.display_image(Constants.ITEMS[1]['image'], (x, y), window)
                     else:
-                        window.blit(
-                            pygame.image.load(
-                                Constants.ITEMS[1]['image'])
-                            .convert(), (30, 450))
+                        Display.display_image(Constants.ITEMS[1]['image'], (30, 450), window)
                 elif sprite == "T":
-                    window.blit(pygame.image.load(Constants.FLOOR).convert(),
-                                (x, y))
+                    Display.display_image(Constants.FLOOR, (x, y), window)
                     if "TUBE" not in character.get_character_items:
-                        window.blit(
-                            pygame.image.load(
-                                Constants.ITEMS[2]['image'])
-                            .convert(), (x, y))
+                        Display.display_image(Constants.ITEMS[2]['image'], (x, y), window)
                     else:
-                        window.blit(
-                            pygame.image.load(
-                                Constants.ITEMS[2]['image'])
-                            .convert(), (60, 450))
+                        Display.display_image(Constants.ITEMS[2]['image'], (60, 450), window)
                 elif sprite in ("C", "1"):
-                    window.blit(pygame.image.load(Constants.FLOOR).convert(),
-                                (x, y))
+                   Display.display_image(Constants.FLOOR, (x, y), window)
                 elif sprite == "G":
-                    window.blit(pygame.image.load(Constants.FLOOR).convert(),
-                                (x, y))
-                    window.blit(pygame.image.load(Constants.GUARD).convert(),
-                                (x, y))
+                    Display.display_image(Constants.FLOOR, (x, y), window)
+                    Display.display_image(Constants.GUARD, (x, y), window)
                 case_number += 1
             line_number += 1
-
-            window.blit(pygame.image.load(Constants.CHARACTER).convert(),
-                        (character.get_character_position[0]
+            Display.display_image(Constants.CHARACTER, (character.get_character_position[0]
                          * Constants.SPRITE_SIZE,
                          character.get_character_position[1]
-                         * Constants.SPRITE_SIZE))
-
+                         * Constants.SPRITE_SIZE), window)
             pygame.display.flip()
+
+    
