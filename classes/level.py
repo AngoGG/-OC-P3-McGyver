@@ -48,7 +48,6 @@ class Level:
             self.put_item_on_map()
             return self.structure
 
-    @staticmethod
     def put_item_on_map(self):
         """
         Place each item on an empty cell
