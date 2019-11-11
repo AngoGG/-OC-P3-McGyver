@@ -51,7 +51,7 @@ class Level:
     def put_item_on_map(self):
         """
         Place each item on an empty cell
-        @return list    structure   Update the labyrinth with items positions
+        Update the labyrinth structure with items positions
         """
         items_cells = random.sample(self.empty_cells, 3)
         self.items_cells = items_cells

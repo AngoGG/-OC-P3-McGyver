@@ -35,23 +35,22 @@ class Display:
         window.blit(pygame.image.load(image).convert(),
                                 position)
 
-    @staticmethod
-    def display_game(location, window):
+    def display_game(self, location, window):
         """
         Start/End display Management according to the state of the game
         """
         if location == "home":
-            Display.display_image(Constants.HOME, (0, 0), window)
+            self.display_image(Constants.HOME, (0, 0), window)
             pygame.display.flip()  # window refreshing
         elif location == "win":
-            Display.display_image(Constants.WIN, (0, 0), window)
+            self.display_image(Constants.WIN, (0, 0), window)
             pygame.display.flip()  # window refreshing
         elif location == "lose":
-            Display.display_image(Constants.LOSE, (0, 0), window)
+            self.display_image(Constants.LOSE, (0, 0), window)
             pygame.display.flip()  # window refreshing
 
-    @staticmethod
-    def display_level(level, character, window):
+    
+    def display_level(self, level, character, window):
         """
         Display all the Game images from the structure level
             and character position
@@ -66,33 +65,33 @@ class Display:
                 x = case_number * Constants.SPRITE_SIZE
                 y = line_number * Constants.SPRITE_SIZE
                 if sprite == "0":
-                    Display.display_image(Constants.WALL, (x, y), window)
+                    self.display_image(Constants.WALL, (x, y), window)
                 elif sprite == "N":
-                    Display.display_image(Constants.FLOOR, (x, y), window)
+                    self.display_image(Constants.FLOOR, (x, y), window)
                     if "NEEDLE" not in character.get_character_items:
-                        Display.display_image(Constants.ITEMS[0]['image'], (x, y), window)
+                        self.display_image(Constants.ITEMS[0]['image'], (x, y), window)
                     else:
-                        Display.display_image(Constants.ITEMS[0]['image'], (0, 450), window)
+                        self.display_image(Constants.ITEMS[0]['image'], (0, 450), window)
                 elif sprite == "E":
-                    Display.display_image(Constants.FLOOR, (x, y), window)
+                    self.display_image(Constants.FLOOR, (x, y), window)
                     if "ETHER" not in character.get_character_items:
-                        Display.display_image(Constants.ITEMS[1]['image'], (x, y), window)
+                        self.display_image(Constants.ITEMS[1]['image'], (x, y), window)
                     else:
-                        Display.display_image(Constants.ITEMS[1]['image'], (30, 450), window)
+                        self.display_image(Constants.ITEMS[1]['image'], (30, 450), window)
                 elif sprite == "T":
-                    Display.display_image(Constants.FLOOR, (x, y), window)
+                    self.display_image(Constants.FLOOR, (x, y), window)
                     if "TUBE" not in character.get_character_items:
-                        Display.display_image(Constants.ITEMS[2]['image'], (x, y), window)
+                        self.display_image(Constants.ITEMS[2]['image'], (x, y), window)
                     else:
-                        Display.display_image(Constants.ITEMS[2]['image'], (60, 450), window)
+                        self.display_image(Constants.ITEMS[2]['image'], (60, 450), window)
                 elif sprite in ("C", "1"):
-                   Display.display_image(Constants.FLOOR, (x, y), window)
+                   self.display_image(Constants.FLOOR, (x, y), window)
                 elif sprite == "G":
-                    Display.display_image(Constants.FLOOR, (x, y), window)
-                    Display.display_image(Constants.GUARD, (x, y), window)
+                    self.display_image(Constants.FLOOR, (x, y), window)
+                    self.display_image(Constants.GUARD, (x, y), window)
                 case_number += 1
             line_number += 1
-            Display.display_image(Constants.CHARACTER, (character.get_character_position[0]
+            self.display_image(Constants.CHARACTER, (character.get_character_position[0]
                          * Constants.SPRITE_SIZE,
                          character.get_character_position[1]
                          * Constants.SPRITE_SIZE), window)

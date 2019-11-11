@@ -32,27 +32,26 @@ class Character:
             if (new_position in self.empty_cells
                     or new_position == self.end_level):
                 self.position = new_position
-                self.check_item_on_position(self)
+                self.check_item_on_position()
         elif direction == K_LEFT:
             new_position = [self.position[0] - 1, self.position[1]]
             if (new_position in self.empty_cells
                     or new_position == self.end_level):
                 self.position = new_position
-                self.check_item_on_position(self)
+                self.check_item_on_position()
         elif direction == K_UP:
             new_position = [self.position[0], self.position[1] - 1]
             if (new_position in self.empty_cells
                     or new_position == self.end_level):
                 self.position = new_position
-                self.check_item_on_position(self)
+                self.check_item_on_position()
         elif direction == K_DOWN:
             new_position = [self.position[0], self.position[1] + 1]
             if (new_position in self.empty_cells
                     or new_position == self.end_level):
                 self.position = new_position
-                self.check_item_on_position(self)
+                self.check_item_on_position()
 
-    @staticmethod
     def check_item_on_position(self):
         """
             Check if an item is on the current position, if yes, call pick_up method
