@@ -28,40 +28,27 @@ class Character:
         @param string   Item found
         """
         if direction == K_RIGHT:
-            new_position = [self.position[0] + 1, self.position[1]]
-            if (new_position in self.empty_cells
-                    or new_position == self.end_level):
-                self.position = new_position
-                self.check_item_on_position()
+            self.update_position([self.position[0] + 1, self.position[1]])
         elif direction == K_LEFT:
-            new_position = [self.position[0] - 1, self.position[1]]
-            if (new_position in self.empty_cells
-                    or new_position == self.end_level):
-                self.position = new_position
-                self.check_item_on_position()
+            self.update_position([self.position[0] - 1, self.position[1]])
         elif direction == K_UP:
-            new_position = [self.position[0], self.position[1] - 1]
-            if (new_position in self.empty_cells
-                    or new_position == self.end_level):
-                self.position = new_position
-                self.check_item_on_position()
+            self.update_position([self.position[0], self.position[1] - 1])
         elif direction == K_DOWN:
-            new_position = [self.position[0], self.position[1] + 1]
-            if (new_position in self.empty_cells
-                    or new_position == self.end_level):
-                self.position = new_position
-                self.check_item_on_position()
+            self.update_position([self.position[0], self.position[1] + 1])
 
-    def check_item_on_position(self):
+    def update_position(self, new_position):
         """
             Check if an item is on the current position, if yes, call pick_up method
         """
-        if self.map[self.position[1]][self.position[0]] == "N":
-            self.pick_up("NEEDLE")
-        elif self.map[self.position[1]][self.position[0]] == "E":
-            self.pick_up("ETHER")
-        elif self.map[self.position[1]][self.position[0]] == "T":
-            self.pick_up("TUBE")
+        if (new_position in self.empty_cells
+                    or new_position == self.end_level):
+            self.position = new_position
+            if self.map[self.position[1]][self.position[0]] == "N":
+                self.pick_up("NEEDLE")
+            elif self.map[self.position[1]][self.position[0]] == "E":
+                self.pick_up("ETHER")
+            elif self.map[self.position[1]][self.position[0]] == "T":
+                self.pick_up("TUBE")
 
     def pick_up(self, item):
         """
